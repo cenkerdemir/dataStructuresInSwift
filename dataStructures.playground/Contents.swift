@@ -1,8 +1,6 @@
 //: Playground - noun: a place where people can play
 
-import UIKit
-
-var str = "Hello, playground"
+import Foundation
 
 //MARK: - LINKED LIST
 
@@ -98,7 +96,7 @@ list.add(node: fourth2)
 print(list.printNodes())
 
 
-//MARK: - QUEUE
+//MARK: - QUEUE  (FIFO : First In First Out)
 
 // it is possible to use linked lists to create a queue but it is faster and easier to use arrays
 
@@ -204,20 +202,112 @@ LLQueue.enqueue(node: thirdNodeForQueue)
 print(LLQueue.linkedListQueue.printNodes())
 
 
+//MARK: - STACK (LIFO: Last In First Out)
+
+var stackArray = [2, 4, 5, 7, 3, 9]
+
+// push
+stackArray.append(12)
+print(stackArray)
+
+//pop
+stackArray.removeLast()
+print(stackArray)
+
+class Stack {
+    
+    var stack = [Int]()
+    
+    func push(value: Int) {
+        stack.append(value)
+    }
+    
+    func pop() -> Int? {
+        if stack.count > 0 {
+            return stack.removeLast()
+        }
+        return nil
+    }
+    
+}
+
+var stackWithArray = Stack()
+
+stackWithArray.push(value: 3)
+stackWithArray.push(value: 6)
+stackWithArray.push(value: 19)
+print(stackWithArray.stack)
+
+let popedValue = stackWithArray.pop()
+print(popedValue!)
+print(stackWithArray.stack)
 
 
+// stack implementation with a linked list
+class StackWithLinkedList {
+    
+    var stackLinkedList = Linkedlist()
+    
+    func push(node: Node) {
+        stackLinkedList.add(node: node)
+    }
+    
+    func pop() -> Node? {
+        if stackLinkedList.root == nil {
+            return nil
+        }
+        else if stackLinkedList.root!.next == nil {
+            let nodeTobePoped = stackLinkedList.root!
+            stackLinkedList.root = nil
+            return nodeTobePoped
+        }
+        else {
+            var currentNode = stackLinkedList.root!
+            var previousNode = currentNode
+            while currentNode.next != nil {
+                previousNode = currentNode
+                currentNode = currentNode.next!
+            }
+            previousNode.next = nil
+            return currentNode
+        }
+    }
+}
 
+var LLStack = StackWithLinkedList()
 
+let rootNodeForStack = Node(value: 1, nextNode: nil)
+LLStack.push(node: rootNodeForStack)
+print(LLStack.stackLinkedList.printNodes())
 
+let secondNodeForStack = Node(value: 2, nextNode: nil)
+LLStack.push(node: secondNodeForStack)
+print(LLStack.stackLinkedList.printNodes())
 
+let thirdNodeForStack = Node(value: 3, nextNode: nil)
+LLStack.push(node: thirdNodeForStack)
+print(LLStack.stackLinkedList.printNodes())
 
+LLStack.pop()
+print(LLStack.stackLinkedList.printNodes())
 
+LLStack.pop()
+print(LLStack.stackLinkedList.printNodes())
 
+LLStack.pop()
+print(LLStack.stackLinkedList.printNodes())
 
+LLStack.pop()
+print(LLStack.stackLinkedList.printNodes())
 
+LLStack.push(node: rootNodeForStack)
+print(LLStack.stackLinkedList.printNodes())
 
+LLStack.push(node: secondNodeForStack)
+print(LLStack.stackLinkedList.printNodes())
 
-
+LLStack.push(node: thirdNodeForStack)
+print(LLStack.stackLinkedList.printNodes())
 
 
 
