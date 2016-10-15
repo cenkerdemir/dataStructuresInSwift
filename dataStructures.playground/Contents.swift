@@ -97,3 +97,130 @@ list.add(node: third2)
 list.add(node: fourth2)
 print(list.printNodes())
 
+
+//MARK: - QUEUE
+
+// it is possible to use linked lists to create a queue but it is faster and easier to use arrays
+
+
+var queueArray = [2, 5, 7, 8, 9, 12, 6]
+
+//enqueue
+queueArray.append(4)
+print(queueArray)
+
+//dequeue
+queueArray.removeFirst()
+print(queueArray)
+
+// a basic queue class
+class Queue {
+    var queue = [Int]()
+    
+    func enqueue(value: Int) {
+        queue.append(value)
+    }
+    
+    func dequeue() -> Int? {
+        if queue.count > 0 {
+            return queue.removeFirst()
+        }
+        return nil
+    }
+}
+
+let intQueue = Queue()
+intQueue.enqueue(value: 5)
+intQueue.enqueue(value: 9)
+intQueue.enqueue(value: 3)
+
+print(intQueue.queue)
+
+let firstRemovedIntFromQueue = intQueue.dequeue()
+print(intQueue.queue)
+
+
+// a queue using a linked list
+class LinkedListQueue {
+    
+    var linkedListQueue = Linkedlist()
+    
+    func enqueue(node: Node) {
+        linkedListQueue.add(node: node)
+    }
+    
+    func dequeue() -> Node? {
+        if linkedListQueue.root != nil {
+            let dequeuedNode = linkedListQueue.root
+            if linkedListQueue.root?.next == nil {
+                linkedListQueue.root = nil
+            }
+            else {
+                linkedListQueue.root = linkedListQueue.root?.next
+            }
+            dequeuedNode?.next = nil
+            return dequeuedNode
+        }
+        return nil
+    }
+}
+
+var LLQueue = LinkedListQueue()
+
+let rootNodeForQueue = Node(value: 12, nextNode: nil)
+LLQueue.enqueue(node: rootNodeForQueue)
+print(LLQueue.linkedListQueue.printNodes())
+
+LLQueue.dequeue()
+print(LLQueue.linkedListQueue.printNodes())
+
+LLQueue.enqueue(node: rootNodeForQueue)
+print(LLQueue.linkedListQueue.printNodes())
+
+let secondNodeForQueue = Node(value: 29, nextNode: nil)
+LLQueue.enqueue(node: secondNodeForQueue)
+print(LLQueue.linkedListQueue.printNodes())
+
+let thirdNodeForQueue = Node(value: 35, nextNode: nil)
+LLQueue.enqueue(node: thirdNodeForQueue)
+print(LLQueue.linkedListQueue.printNodes())
+
+LLQueue.dequeue()
+print(LLQueue.linkedListQueue.printNodes())
+
+LLQueue.enqueue(node: rootNodeForQueue)
+print(LLQueue.linkedListQueue.printNodes())
+
+LLQueue.dequeue()
+print(LLQueue.linkedListQueue.printNodes())
+
+LLQueue.enqueue(node: secondNodeForQueue)
+print(LLQueue.linkedListQueue.printNodes())
+
+LLQueue.dequeue()
+print(LLQueue.linkedListQueue.printNodes())
+
+LLQueue.enqueue(node: thirdNodeForQueue)
+print(LLQueue.linkedListQueue.printNodes())
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
