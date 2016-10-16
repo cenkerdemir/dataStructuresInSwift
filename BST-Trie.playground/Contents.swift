@@ -62,8 +62,45 @@ insert(root: root, node: TreeNode(data: 6))
 printTreeInOrder(root: root)
 
 
+//MARK: - Trie
 
+//trie node
+class TrieNode {
+    
+    //null character
+    var char : Character = "\0"
+    
+    //flag
+    var isWord = false
+    
+    //dictionary
+    var children = [Character : TrieNode]()
+    
+    init(char: Character, isWord: Bool) {
+        self.char = char
+        self.isWord = isWord
+    }
+}
 
+class Trie {
+    
+    var root = TrieNode(char: "\0", isWord: false)
+    
+    func insert(word: String) {
+        if word.characters.count > 0 {
+            var currentNode : TrieNode = self.root
+            let wordLength = word.characters.count
+            
+            for (index, char) in word.characters.enumerated() {
+                if currentNode.children[char] == nil {
+                    let isWord = wordLength == (index + 1) ? true : false
+                }
+            }
+            
+        }
+    }
+    
+}
 
 
 
