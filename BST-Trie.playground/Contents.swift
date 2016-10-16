@@ -131,6 +131,8 @@ class Trie {
 
 let trie = Trie()
 
+
+
 trie.insert(word: "Cenker")
 trie.find(word: "Cenker") //returns true
 
@@ -139,14 +141,30 @@ trie.find(word: "Demir") //returns false
 trie.insert(word: "Demir")
 trie.find(word: "Demir") //now returns true
 
+trie.insert(word: "Helen")
+trie.insert(word: "Zonguldak")
+
 var node = trie.root
 
+//this is a recursive print function to print the characters in the trie.
+func printAllTrieChildren(node: TrieNode) {
+    print(node.char)
+    for (char) in node.children.keys {
+        printAllTrieChildren(node: node.children[char]!)
+    }
+}
 
+printAllTrieChildren(node: node)
 
+//bonus :-) a factorial function using recursion. do not go over 20 though, the number will get too big and your code might crash...
+func myFactorial(number: IntMax) -> IntMax {
+    if number <= 1 {
+        return 1
+    }
+    return number * myFactorial(number: number - 1)
+}
 
-
-
-
+print(myFactorial(number: 9))
 
 
 
