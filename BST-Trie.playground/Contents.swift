@@ -82,6 +82,7 @@ class TrieNode {
     }
 }
 
+//trie class
 class Trie {
     
     var root = TrieNode(char: "\0", isWord: false)
@@ -94,17 +95,51 @@ class Trie {
             for (index, char) in word.characters.enumerated() {
                 if currentNode.children[char] == nil {
                     let isWord = wordLength == (index + 1) ? true : false
+                    currentNode.children[char]  = TrieNode(char: char, isWord: isWord)
                 }
+                else {
+                    continue
+                }
+                currentNode = currentNode.children[char]!
             }
-            
         }
     }
     
+    func find(word: String) -> Bool {
+        if word.characters.count > 0 {
+            var currentNode : TrieNode = self.root
+            
+            for char in word.characters {
+                if currentNode.children[char] == nil {
+                    return false
+                }
+                else {
+                    if currentNode.children[char]!.isWord == true {
+                        return true
+                    }
+                    else {
+                        currentNode = currentNode.children[char]!
+                    }
+                }
+            }
+        }
+        return false
+    }
 }
 
+// test the trie implementation
 
+let trie = Trie()
 
+trie.insert(word: "Cenker")
+trie.find(word: "Cenker") //returns true
 
+trie.find(word: "Demir") //returns false
+
+trie.insert(word: "Demir")
+trie.find(word: "Demir") //now returns true
+
+var node = trie.root
 
 
 
