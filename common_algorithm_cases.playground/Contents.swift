@@ -21,10 +21,19 @@ print(test)
 
 //iterative
 
-func fibIte(num: Int) {
-    
-    for <#item#> in <#items#> {
-        <#code#>
+func fibIte(num: Int) -> Int {
+    if num <= 0 {
+        return 0
     }
-    
+    if num <= 2 {
+        return 1
+    }
+    var fibs = [0,1,1]
+    for i in 3...num {
+        fibs.append(fibs[i-1] + fibs[i-2])
+    }
+    return fibs[num]
 }
+
+print(fibIte(num: 10))
+
