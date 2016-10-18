@@ -2,7 +2,20 @@
 
 import Foundation
 
-//MARK: - BST 
+
+// a factorial function using recursion. It has almost nothing to do with the rest of this file
+func myFactorial(number: IntMax) -> IntMax {
+    if number <= 1 {
+        return 1
+    }
+    return number * myFactorial(number: number - 1)
+}
+
+print(myFactorial(number: 9))
+
+///////////////////////////////////////////////////////////
+
+//MARK: - BST
 
 //tree node class
 class TreeNode {
@@ -67,35 +80,39 @@ printTreeInOrder(root: root)
 //trie node
 class TrieNode {
     
-    //null character
+    // every trie has a character that will be a part of the word
     var char : Character = "\0"
     
-    //flag
+    // a flag to mark the character that completes the word
     var isWord = false
     
-    //dictionary
+    //each trie node will have children. this is a dictionary and the keys are characters values are trie nodes
     var children = [Character : TrieNode]()
     
+    // initializer that takes the character and isWord flag as arguments
     init(char: Character, isWord: Bool) {
         self.char = char
         self.isWord = isWord
     }
+    
 }
+
 
 //trie class
 class Trie {
     
     var root = TrieNode(char: "\0", isWord: false)
     
+    // insert function.
     func insert(word: String) {
         if word.characters.count > 0 {
-            var currentNode : TrieNode = self.root
+            var currentNode = self.root
             let wordLength = word.characters.count
             
             for (index, char) in word.characters.enumerated() {
                 if currentNode.children[char] == nil {
                     let isWord = wordLength == (index + 1) ? true : false
-                    currentNode.children[char]  = TrieNode(char: char, isWord: isWord)
+                    currentNode.children[char] = TrieNode(char: char, isWord: isWord)
                 }
                 else {
                     continue
@@ -105,9 +122,10 @@ class Trie {
         }
     }
     
+    //find function
     func find(word: String) -> Bool {
         if word.characters.count > 0 {
-            var currentNode : TrieNode = self.root
+            var currentNode = self.root
             
             for char in word.characters {
                 if currentNode.children[char] == nil {
@@ -118,33 +136,30 @@ class Trie {
                         return true
                     }
                     else {
-                        currentNode = currentNode.children[char]!
+                       currentNode = currentNode.children[char]!
                     }
                 }
             }
         }
         return false
     }
+    
 }
+
+
 
 // test the trie implementation
 
 let trie = Trie()
 
-
-
 trie.insert(word: "Cenker")
-trie.find(word: "Cenker") //returns true
-
-trie.find(word: "Demir") //returns false
-
-trie.insert(word: "Demir")
-trie.find(word: "Demir") //now returns true
-
+trie.find(word: "Cenker")
 trie.insert(word: "Helen")
-trie.insert(word: "Zonguldak")
-
-var node = trie.root
+trie.find(word: "Melen")
+trie.find(word: "Helen")
+trie.insert(word: "Demir")
+trie.find(word: "Demir")
+trie.insert(word: "Carsamba")
 
 //this is a recursive print function to print the characters in the trie.
 func printAllTrieChildren(node: TrieNode) {
@@ -154,17 +169,112 @@ func printAllTrieChildren(node: TrieNode) {
     }
 }
 
-printAllTrieChildren(node: node)
+printAllTrieChildren(node: trie.root)
 
-//bonus :-) a factorial function using recursion. do not go over 20 though, the number will get too big and your code might crash...
-func myFactorial(number: IntMax) -> IntMax {
-    if number <= 1 {
-        return 1
+// MARK: - Graph
+
+class Vertex {
+    var key : String?
+    var neighbors : [Edge]
+    
+    init() {
+        self.neighbors = [Edge]()
     }
-    return number * myFactorial(number: number - 1)
+    
+    init(key: String) {
+        self.key = key
+        self.neighbors = [Edge]()
+    }
 }
 
-print(myFactorial(number: 9))
+class Edge {
+    var neightbor : Vertex
+    var weight : Int
+    
+    init() {
+        self.weight = 0
+        self.neightbor = Vertex()
+    }
+}
+
+class Graph {
+    
+    var canvas : [Vertex]
+    var isDirected : Bool
+    
+    init() {
+        self.canvas = [Vertex]()
+        self.isDirected = true
+    }
+    
+    func addVertex(key: String) -> Vertex {
+        //create a vertex with the key
+        let childVertex : Vertex = Vertex(key: key)
+        
+        //add vertex to graph canvas
+        canvas.append(childVertex)
+        
+        return childVertex
+    }
+    
+    func addEdge(source: Vertex, neighbor: Vertex, weight: Int) {
+        
+        //create a new edge
+        let newEdge = Edge()
+        newEdge.neightbor = neighbor
+        newEdge.weight = weight
+        
+        source.neighbors.append(newEdge)
+        
+        if isDirected == false {
+            let reverseEdge = Edge()
+            reverseEdge.neightbor = source
+            reverseEdge.weight = weight
+            neighbor.neighbors.append(reverseEdge)
+        }
+    }
+}
+
+//test the graph code
+let graph = Graph()
+
+let vertex1 = graph.addVertex(key: "A")
+let vertex2 = graph.addVertex(key: "B")
+let vertex3 = graph.addVertex(key: "C")
+let vertex4 = graph.addVertex(key: "D")
+let vertex5 = graph.addVertex(key: "E")
+
+graph.addEdge(source: vertex1, neighbor: vertex2, weight: 5)
+graph.addEdge(source: vertex1, neighbor: vertex3, weight: 1)
+graph.addEdge(source: vertex1, neighbor: vertex5, weight: 11)
+graph.addEdge(source: vertex2, neighbor: vertex4, weight: 1)
+graph.addEdge(source: vertex4, neighbor: vertex5, weight: 2)
+
+
+// printing graph vertices, edges, and their weight
+for vertex in graph.canvas {
+    for neighbor in vertex.neighbors {
+        print("\(vertex.key!) is connected to \(neighbor.neightbor.key!) and the weight is \(neighbor.weight)")
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
