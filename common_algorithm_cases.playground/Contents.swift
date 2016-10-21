@@ -4,8 +4,9 @@ import Foundation
 
 // MARK: - FIBONACCI
 
-//recursive
+//RECURSIVE
 
+//basic recursive
 func fibRec(num: Int) -> Int {
     if num == 0 {
         return 0
@@ -19,7 +20,24 @@ func fibRec(num: Int) -> Int {
 //let test = fibRec(num: 10)
 //print(test)
 
-//iterative
+//fibonacci memoize - using a dictionary to improve the recursive method's performance (performance is around O(N) )
+var map = [0:0, 1:1]
+
+func fibonacciMemoize(n:Int) -> Int {
+    if let value = map[n] {
+        return value
+    }
+    else {
+        let f = fibonacciMemoize(n: n - 1) + fibonacciMemoize(n: n - 2)
+        map[n] = f
+        return f
+    }
+}
+
+print(fibonacciMemoize(n: 10))
+print(map)
+
+//ITERATIVE
 
 func fibIte(num: Int) -> Int {
     if num <= 0 {
@@ -59,10 +77,10 @@ func fibIte2(num : Int) -> Int {
     return sum
 }
 
+//print(fibIte2(num: 91))
 
-//print(fibIte2(num: 40))
+//////////////////////////////////////////////////////////
 
-//
 
 
 
