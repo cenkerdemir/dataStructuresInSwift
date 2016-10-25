@@ -79,6 +79,7 @@ func fibIte2(num : Int) -> Int {
 
 //print(fibIte2(num: 91))
 
+//MARK: - FIZZBUZZ
 //////////////////////////////////////////////////////////
 
 func fizzBuzz(num: Int) {
@@ -91,21 +92,96 @@ func fizzBuzz(num: Int) {
         if i % 5 == 0 {
             fizzBuzzStr += "Buzz"
         }
-        print(fizzBuzzStr + " " + String(i))
+        if fizzBuzzStr.characters.count == 0 {
+            fizzBuzzStr = String(i)
+        }
+        print(fizzBuzzStr)
     }
 }
 
-fizzBuzz(num: 100)
+//fizzBuzz(num: 100)
 
 ///////////////////////////////////////////////////////////
 
+// MARK: - REVERSED LINKED LIST
+
+class Node {
+    var value : Int
+    var next: Node?
+    
+    init(value: Int, nextNode: Node?) {
+        self.value = value
+        self.next = nextNode
+    }
+}
+
+class LinkedList {
+    var root : Node?
+    
+    func add (node : Node?) {
+        if root == nil {
+            self.root = node
+        }
+        else {
+            var currentNode = root!
+            while currentNode.next != nil {
+                currentNode = currentNode.next!
+            }
+            currentNode.next = node
+        }
+    }
+    
+    
+    func printNodes() -> String {
+        if root == nil {
+            return "the list is empty"
+        }
+        else {
+            var currentNode = root!
+            var nodes = "\(currentNode.value)"
+            while currentNode.next != nil {
+                currentNode = currentNode.next!
+                nodes += " \(currentNode.value)"
+            }
+            return nodes
+        }
+    }
+    
+    func reverseLinkedList() {
+        if self.root != nil {
+            var currentNode : Node? = root
+            var previousNode : Node?
+            
+            while currentNode != nil {
+                let next = currentNode!.next
+                currentNode!.next = previousNode
+                previousNode = currentNode
+                currentNode = next
+            }
+            self.root = previousNode
+        }
+    }
+}
+
+let list = LinkedList()
+let root = Node(value: 5, nextNode: nil)
+let second = Node(value: 9, nextNode: nil)
+let third = Node(value: 2, nextNode: nil)
+let fourth = Node(value: 8, nextNode: nil)
+list.add(node: root)
+list.add(node: second)
+list.add(node: third)
+list.add(node: fourth)
+print(list.printNodes())
+
+list.reverseLinkedList()
+print(list.printNodes())
+
+list.reverseLinkedList()
+print(list.printNodes())
 
 
-
-
-
-
-
+// MARK: - Two Sums in an array
 
 
 
