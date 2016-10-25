@@ -81,6 +81,24 @@ func fibIte2(num : Int) -> Int {
 
 //////////////////////////////////////////////////////////
 
+func fizzBuzz(num: Int) {
+    
+    for i in 0...num {
+        var fizzBuzzStr = ""
+        if i % 3 == 0 {
+            fizzBuzzStr += "Fizz"
+        }
+        if i % 5 == 0 {
+            fizzBuzzStr += "Buzz"
+        }
+        print(fizzBuzzStr + " " + String(i))
+    }
+}
+
+fizzBuzz(num: 100)
+
+///////////////////////////////////////////////////////////
+
 
 
 
