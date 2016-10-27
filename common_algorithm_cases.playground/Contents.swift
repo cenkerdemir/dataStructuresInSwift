@@ -185,9 +185,37 @@ print(list.printNodes())
 
 
 
+func twoSumsWithNestedLoops(intArray: [Int], sum: Int) -> [[Int]] {
+    var resultArray = [[Int]]()
+    for i in 0..<intArray.count {
+        for j in i+1..<intArray.count {
+            if intArray[i] + intArray[j] == 10 {
+                var tempArray = [Int]()
+                tempArray.append(intArray[i])
+                tempArray.append(intArray[j])
+                if resultArray.contains(where: { elementArray -> Bool in
+                    if elementArray == tempArray {
+                        return true
+                    }
+                    else {
+                        return false
+                    }
+                    
+                }) == true {
+                    // do nothing
+                }
+                else {
+                    resultArray.append(tempArray)
+                }
+            }
+        }
+    }
+    return resultArray
+}
 
+let testArray = [2,4,3,6,5,7,5,4,3,5,6,7]
 
-
+print(twoSumsWithNestedLoops(intArray: testArray, sum: 10))
 
 
 
