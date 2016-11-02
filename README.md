@@ -1,2 +1,7 @@
 # dataStructuresInSwift
-some data structure implementations such as Linked List, Queue, Stack, Binary Search Tree, and Graph
+Some data structure implementations such as: 
+Linked List, 
+Queues, 
+Stacks, 
+Binary Search Trees, 
+and Graphs
